@@ -1,0 +1,10 @@
+  function diminuirContador() {
+    if (contador > 0) {
+      setContador(contador - 1)
+    }
+  }
+
+  function aumentarContador() {
+      setContador(contador + 1)
+    
+  }
