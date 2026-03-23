@@ -7,6 +7,40 @@ export default function App() {
   const [contadorA, setContadorA] = useState(0);
   const [contadorB, setContadorB] = useState(0);
 
+  const [vencedorA, setVencedorA] = useState(0)
+  const novoValorA = vencedorA + 1; 
+
+  const [vencedorB, setVencedorB] = useState(0);
+  const novoValorB = vencedorB + 1;
+
+  function verificarVencedorA() {
+    if (contadorA >= 12) {
+      setVencedorA(novoValorA);
+    } else if (contadorA >= 9) {
+      setVencedorA(novoValorA);
+    } else if (contadorA >= 6) {
+      setVencedorA(novoValorA);
+    } else if (contadorA >= 3) {
+      setVencedorA(novoValorA);
+    } else if (contadorA >= 0) {
+      setVencedorA(novoValorA);
+    }
+  };
+
+  function verificarVencedorB() {
+    if (contadorB >= 12) {
+      setVencedorB(novoValorB);
+    } else if (contadorB >= 9) {
+      setVencedorB(novoValorB);
+    } else if (contadorB >= 6) {
+      setVencedorB(novoValorB);
+    } else if (contadorB >= 3) {
+      setVencedorB(novoValorB);
+    } else if (contadorB >= 0) {
+      setVencedorB(novoValorB);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -70,6 +104,19 @@ export default function App() {
             }}
           >
             {contadorA}
+          </Text>
+
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: "black",
+              textAlign: "center",
+              marginVertical: 10,
+              // Adiciona um pouco de margem vertical para separar o título do contador, melhorando a legibilidade
+            }}
+          >
+            Ganhou: {vencedorA} vezes
           </Text>
 
           {/* Estilo do Botão contador 1 */}
@@ -155,6 +202,19 @@ export default function App() {
             >
               {contadorB}
             </Text>
+
+            <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+              color: "black",
+              textAlign: "center",
+              marginVertical: 10,
+              // Adiciona um pouco de margem vertical para separar o título do contador, melhorando a legibilidade
+            }}
+          >
+            Ganhou: {vencedorB} vezes
+          </Text>
 
             <View
               style={{
