@@ -1,284 +1,46 @@
-import { StatusBar } from "expo-status-bar";
-import { Image, Button, StyleSheet, Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 import { useState } from "react";
+import { FlatList, TextInput } from "react-native-web";
 
 export default function App() {
-  // Contadores independentes para os marcadores
-  const [contadorA, setContadorA] = useState(0);
-  const [contadorB, setContadorB] = useState(0);
+  const [nome, setNome] = useState('');
+  const [minhaLista, setMinhaLista] = useState([]);
 
-  const [vencedorA, setVencedorA] = useState(0)
-  const novoValorA = vencedorA + 1; 
+  function adicionarContato() {
+    const novoContato = {
+      id: Math.random().toString(), 
+      // Gera um ID único usando um número aleatório convertido para string
+      nome: nome,
+      //objeto que tem o nome do contato, que é o valor do estado 'nome'
+      cpf: " " 
+    };
+    setMinhaLista([novoContato, ...minhaLista]);
+    setNome('');
+    // Screth -> Cria uma nova array que contém o novo contato seguido dos contatos existentes na minhaLista. Isso é feito para manter os contatos anteriores e adicionar o novo contato no início da lista.
+  }
 
-  const [vencedorB, setVencedorB] = useState(0);
-  const novoValorB = vencedorB + 1;
+return (
+  <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
-  function verificarVencedorA() {
-    if (contadorA >= 12) {
-      setVencedorA(novoValorA);
-    } else if (contadorA >= 9) {
-      setVencedorA(novoValorA);
-    } else if (contadorA >= 6) {
-      setVencedorA(novoValorA);
-    } else if (contadorA >= 3) {
-      setVencedorA(novoValorA);
-    } else if (contadorA >= 0) {
-      setVencedorA(novoValorA);
-    }
-  };
+    <TextInput
+      placeholder="Digite seu nome: "
+      value={nome}
+      onChangeText={setNome}
+      />
 
-  function verificarVencedorB() {
-    if (contadorB >= 12) {
-      setVencedorB(novoValorB);
-    } else if (contadorB >= 9) {
-      setVencedorB(novoValorB);
-    } else if (contadorB >= 6) {
-      setVencedorB(novoValorB);
-    } else if (contadorB >= 3) {
-      setVencedorB(novoValorB);
-    } else if (contadorB >= 0) {
-      setVencedorB(novoValorB);
-    }
-  };
+      <Button
+        title="Adicionar Contato"
+        onPress={adicionarContato}
+      />
+      <Text>Meus Contatos</Text>
 
-  return (
-    <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          
-        }}
-      >
-        {/* Imagem da View via uri da web*/}
-        <Image
-          source={{
-            uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShmiCv0ECn4qebaySlKUFQiiFG2MZOkWEzzirv1ZUwIQ&s",
-          }}
-          style={{
-            width: 250,
-            // Largura da imagem
-            height: 150,
-            // Altura da imagem
-            marginTop: 100,
-            // Margem superior para afastar a imagem do topo da tela
-          }}
-        />
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          // Organiza os elementos em linha
-          justifyContent: "space-between",
-          // Distribui os elementos com espaço entre eles
-          padding: 10,
-          // Adiciona um pouco de preenchimento ao redor dos elementos
-          gap: 25,
-        }}
-      >
-        <View>
-          {/* Começo Bloco 1 - Marcador */}
-
-          {/* Título do 1 container com Style*/}
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "black",
-              textAlign: "center",
-              marginVertical: 1,
-              // Adiciona um pouco de margem vertical para separar o título do contador, melhorando a legibilidade
-              padding: 50,
-            }}
-          >
-            NÓS
-          </Text>
-          
-          {/* Total do Contador do 1 container */}
-          <Text
-            style={{
-              fontSize: 60,
-              fontWeight: "bold",
-              color: "black",
-              textAlign: "center",
-            }}
-          >
-            {contadorA}
-          </Text>
-
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "black",
-              textAlign: "center",
-              marginVertical: 10,
-              // Adiciona um pouco de margem vertical para separar o título do contador, melhorando a legibilidade
-            }}
-          >
-            Ganhou: {vencedorA} vezes
-          </Text>
-
-          {/* Estilo do Botão contador 1 */}
-          <View
-            style={{
-              flex: 1,
-              gap: 50, 
-              // espaçamento entre os botões, para evitar que fiquem colados
-              justifyContent: "center",
-              marginVertical: 55,
-              // espaçamento vertical para afastar os botões do contador, deixando o layout mais limpo
-              gap: 30,
-            }}
-          >
-            <Button
-              onPress={() => setContadorA(contadorA + 1)}
-              title=" + "
-              color="green"
-            />
-
-            {/* Se o contadorA for maior que 0, subtrair 1. Senão, não fazer nada */}
-            <Button
-              onPress={() =>
-                contadorA > 0 ? setContadorA(contadorA - 1) : null
-              }
-              title=" - "
-              color="#970707"
-            />
-
-            <Button
-              onPress={() => setContadorA(contadorA + 3)}
-              title=" TRUCO "
-              color="#008080"
-            />
-
-            <Button
-              onPress={() => setContadorA(contadorA + 6)}
-              title="SEIS"
-              color="#000080"
-            />
-
-            <Button
-              onPress={() => setContadorA(contadorA + 9)}
-              title="NOVE"
-              color="#4B0082"
-            />
-
-            <Button
-              onPress={() => setContadorA(contadorA + 9)}
-              title="DOZE"
-              color="#570a0a"
-            />
-          </View>
-        </View>
-
-        <View>
-          {/* Fim Bloco 1 - Marcador */}
-
-          {/* Bloco 2 - Marcador */}
-          
-          {/* Título do 2 container com Style*/}
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                color: "black",
-                textAlign: "center",
-                marginVertical: 1,
-                padding: 50,
-              }}
-            >
-              ELES
-            </Text>
-
-            {/* Total do Contador do 2 container */}
-            <Text
-              style={{
-                fontSize: 60,
-                fontWeight: "bold",
-                color: "black",
-                textAlign: "center",
-              }}
-            >
-              {contadorB}
-            </Text>
-
-            <Text
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: "black",
-              textAlign: "center",
-              marginVertical: 10,
-              // Adiciona um pouco de margem vertical para separar o título do contador, melhorando a legibilidade
-            }}
-          >
-            Ganhou: {vencedorB} vezes
-          </Text>
-
-            <View
-              style={{
-                flex: 1,
-                // Permite que a View ocupe o espaço disponível, garantindo que os botões sejam centralizados verticalmente
-                gap: 50,
-                justifyContent: "center",
-                gap: 30,
-              }}
-            >
-              {/* Estilo do Botão contador 2 */}
-              <Button
-                onPress={() => setContadorB(contadorB + 1)}
-                title=" + "
-                color="green"
-              />
-
-              {/* Se o contadorB for maior que 0, subtrair 1. Senão, não fazer nada */}
-              <Button
-                onPress={() =>
-                  contadorB > 0 ? setContadorB(contadorB - 1) : null
-                }
-                title=" - "
-                color="#970707"
-              />
-
-              <Button
-                onPress={() => setContadorB(contadorB + 3)}
-                title=" TRUCO "
-                color="#008080"
-              />
-
-              <Button
-                onPress={() => setContadorB(contadorB + 6)}
-                title="SEIS"
-                color="#000080"
-              />
-
-              <Button
-                onPress={() => setContadorB(contadorB + 9)}
-                title="NOVE"
-                color="#4B0082"
-              />
-
-              <Button
-                onPress={() => setContadorB(contadorB + 9)}
-                title="DOZE"
-                color="#570a0a"
-              />
-              {/* Fim Bloco 2 - Marcador */}
-            
-          </View>
-        </View>
-      </View>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+      <FlatList
+        data={minhaLista}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <Text>{item.nome}</Text>
+        )}
+      />
+    
+  </View>
+)}
